@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: cart-service
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      #      nacos访问地址
+      server-addr: 192.168.254.128:8848
+      config:
+        #        共享配置文件后缀
+        file-extension: yaml
+        #        共享配置文件信息
+        shared-configs:
+          - data-id: shared-jdbc.yaml
+          - data-id: shared-log.yaml
+          - data-id: shared-swagger.yaml
+          - data-id: shared-okhttp.yaml
