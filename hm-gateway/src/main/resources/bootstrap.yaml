@@ -1,0 +1,12 @@
+spring:
+  application:
+    #    微服务名称
+    name: gateway
+  cloud:
+    nacos:
+      #      nacos 服务注册发现地址
+      server-addr: 192.168.254.128:8848
+      config:
+        file-extension: yaml
+        shared-configs:
+          - data-id: shared-log.yaml
