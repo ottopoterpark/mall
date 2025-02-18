@@ -9,6 +9,9 @@ import org.springframework.context.annotation.Configuration;
 
 import java.math.BigInteger;
 
+/**
+ * @author unique
+ */
 @Configuration
 @ConditionalOnClass(ObjectMapper.class)
 public class JsonConfig {
