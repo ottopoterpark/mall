@@ -112,4 +112,28 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         }
         return details;
     }
+
+    @Override
+    public void cancelOrder(Long orderId)
+    {
+        //取消订单
+        Order order = new Order();
+        order.setId(orderId);
+        order.setPayTime(LocalDateTime.now());
+        order.setStatus(5);
+        updateById(order);
+        //恢复库存
+        //2.恢复商品库存
+        List<OrderDetailDTO> detailDTOs=new ArrayList<>();
+
+        List<OrderDetail> orderDetailList = detailService.lambdaQuery().eq(OrderDetail::getOrderId, orderId).list();
+        for(OrderDetail orderDetail: orderDetailList ){
+            OrderDetailDTO orderDetailDTO = new OrderDetailDTO();
+            orderDetailDTO.setNum(-orderDetail.getNum());
+            orderDetailDTO.setItemId(orderDetail.getItemId());
+            detailDTOs.add(orderDetailDTO);
+        }
+        itemClient.deductStock(detailDTOs);
+        System.out.println("恢复库存成功！！！");
+    }
 }

@@ -1,11 +1,9 @@
 package com.hmall.api.config;
 
 import com.hmall.api.fallback.ItemClientFallbackFactory;
+import com.hmall.api.fallback.PayClientFallbackFactory;
 import com.hmall.api.interceptor.UserInfoFeignInterceptor;
-import com.hmall.common.utils.UserContext;
 import feign.Logger;
-import feign.RequestInterceptor;
-import feign.RequestTemplate;
 import org.springframework.context.annotation.Bean;
 
 /**
@@ -26,6 +24,7 @@ public class DefaultFeignConfig {
 
     /**
      * 微服务远程调用传递用户信息
+     *
      * @return
      */
     @Bean
@@ -36,11 +35,23 @@ public class DefaultFeignConfig {
 
     /**
      * 商品Feign客户端服务降级处理类
+     *
      * @return
      */
     @Bean
     public ItemClientFallbackFactory itemClientFallbackFactory()
     {
         return new ItemClientFallbackFactory();
+    }
+
+    /**
+     * 支付Feign客户端服务降级处理类
+     *
+     * @return
+     */
+    @Bean
+    public PayClientFallbackFactory payClientFallbackFactory()
+    {
+        return new PayClientFallbackFactory();
     }
 }
